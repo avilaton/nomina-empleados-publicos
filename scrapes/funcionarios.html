@@ -1,0 +1,1692 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	       <title>Consulta de Funcionarios</title>
+	
+	<meta name="title" content="Consulta de Personal - Santa Fe Ciudad">
+  	<meta http-equiv="Pragma" content="no-cache">
+  	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  	<meta http-equiv="Content-Language" content="es">
+	<link rel="stylesheet" type="text/css" href="estilo.css">	
+	<script language="javascript" src="js/jquery-1.6.1.js"></script>
+	<script type="text/javascript">
+		
+	$(document).ready(function() {	
+	
+		//select all the input tag with name equal to modal
+		$('a[name="modal"]').click(function(e) {
+			//Cancel the link behavior
+			e.preventDefault();
+			
+			//Get the href tag
+			var id = $(this).attr('href');
+
+			//Get the screen height and width
+			var maskHeight = $(document).height();//document
+			var maskWidth = $(window).width();//window
+		
+			//Set heigth and width to mask to fill up the whole screen
+			$('#mask').css({'width':maskWidth,'height':maskHeight});
+						
+			//transition effect		
+			$('#mask').fadeIn(5);	
+			$('#mask').fadeTo("fast",0);	
+					
+			//Get the window height and width
+			var winH = $(window).height();//window
+			var winW = $(window).width();//window
+				  
+			//Set the popup window to center
+			$(id).css('top',  winH/2-$(id).height()/2);
+			$(id).css('left', winW/2-$(id).width()/2);
+
+			//transition effect
+			$(id).fadeIn(5); 
+
+			//buscar_detalle(document.getElementById('DOCU').value);
+		
+		});
+		
+		//if close button is clicked
+		$('.window .close').click(function (e) {
+			//Cancel the link behavior
+			e.preventDefault();
+			
+			$('#mask').hide();
+			$('.window').hide();
+		});		
+		
+		//if mask is clicked
+		$('#mask').click(function () {
+			$(this).hide();
+			$('.window').hide();
+		});			
+	});				
+		
+		
+	//Funcion para cerrar la pantalla desde el ajax php
+	function cerrarModal()
+	{
+		$('#mask').hide();
+		$('.window').hide();
+	}
+	
+	
+	//Funcion ajax para poner la lista de agentes en la ventana modal
+	function buscar_detalle(documento)
+	{		
+		function CrearObjeto()
+		{
+			var obj;
+			
+			if (window.XMLHttpRequest) 
+			{	obj = new XMLHttpRequest();	}
+			else 
+			{	obj = new ActiveXObject("Microsoft.XMLHTTP");	}                                  
+
+			return obj;
+		};
+
+		function leerDatos()
+		{
+			if (xmlHttp.readyState == 4) 
+			{
+				var respuesta = xmlHttp.responseText;
+					
+				$('#detalle').html(respuesta);
+			}
+		}
+
+		xmlHttp = CrearObjeto();
+
+		xmlHttp.open("GET", "ver_detalle.php?doc="+documento);
+		xmlHttp.onreadystatechange = leerDatos;
+		xmlHttp.send('');
+	}				
+	
+	
+	</script>
+</head>
+
+<body>
+	<div id="wrapper">
+	  	<link rel="shorcut icon" type="images/x-icon" href="favicon.ico"/>
+
+<table class="top-bg" cellspacing="0" cellpadding="0" summary="santa fe ciudad">
+
+	<tr>
+		<td style="background: #FFF url('templates/images/header_left.gif') no-repeat; width: 271px; height: 111px; cursor: pointer;" onclick="location.href='http://www.santafeciudad.gov.ar'" title="Ir al sitio del gobierno de la ciudad" onmouseover="window.status='Ir a santafeciudad.gov.ar'" onmouseout="window.status=''">&nbsp;</td>
+	   <td style="background: #FFF url('templates/images/header_right.gif') no-repeat; width: 484px;height: 111px" ><h2 style="display: none">Consulta de Funcionarios - Ciudad de Santa Fe</h2>&nbsp;</td>
+	</tr>
+	
+</table>	
+	<div id="content">
+		<div id="tools">
+			<div class="fleft" style="float: left">
+						
+								<h1>Listado de Funcionarios </h1>
+				
+			</div>
+		</div>
+		
+		<div id="main">	
+		<form name="frm_listado" method="post">
+			<!--  Comienzo Ventana Modal -->
+				<div id="boxes">
+					<div id="dialog" class="window">
+						<div id='detalle'></div>
+					</div>					 
+					<!-- Mask to cover the whole screen -->
+					<div id="mask"></div>
+				</div>
+				<!--  Fin Ventana Modal -->
+			<br />
+						
+		
+						<div class="table">
+			<table style="font-size:10px;" border="0" width="100%">	
+				<tr>
+					<!--<th width="8%">AGENTE</th>-->
+					<th width="13%">DOCUMENTO</th>
+					<th width="27%">APELLIDO, NOMBRE</th>
+					<!--<th width="27%">CARGO</th>-->
+					<th width="60%" colspan="2">REPARTICION / SECRETARIA </th>
+				</tr>				
+				
+							<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(33945164);">33945164</a>
+				</td>
+				<td>AGRAMUNT, JAVIER GASTON</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(10567909);">10567909</a>
+				</td>
+				<td>AGUIRRE MADARIAGA, EDUARDO</td>
+				
+					<td>DIREC.DE GESTION DE RIESGO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27066023);">27066023</a>
+				</td>
+				<td>ALARCON, MARIO JUAN MANUEL</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17461775);">17461775</a>
+				</td>
+				<td>ALBRECHT, MARIA DEL CARMEN</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28158676);">28158676</a>
+				</td>
+				<td>ALEN, JOSE LUIS</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16227639);">16227639</a>
+				</td>
+				<td>ALICO, MARCELO ALEJANDRO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22614091);">22614091</a>
+				</td>
+				<td>ALVAREZ, MARIA FERNANDA</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25077163);">25077163</a>
+				</td>
+				<td>ARMANDO, DANILO LIONEL</td>
+				
+					<td>JUSTICIA ADMINISTRATIVA DE FALTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25077149);">25077149</a>
+				</td>
+				<td>ARRIETTI, ANDREA GABRIELA</td>
+				
+					<td>SINDICATURA GENERAL MUNICIPAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22681583);">22681583</a>
+				</td>
+				<td>AZARIO, MALENA ROSANA</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(18359763);">18359763</a>
+				</td>
+				<td>BALBASTRO,LUZ MA.DE LAS MERCED</td>
+				
+					<td>TRIBUNAL DE CUENTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(21126667);">21126667</a>
+				</td>
+				<td>BARCELO, ANDRES</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13676559);">13676559</a>
+				</td>
+				<td>BARCOS, DANIEL OSVALDO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16573464);">16573464</a>
+				</td>
+				<td>BARDUS, MARIO ALBERTO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(31502687);">31502687</a>
+				</td>
+				<td>BARLETTA, MARIA BEATRIZ</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28022805);">28022805</a>
+				</td>
+				<td>BATTISTA, MATIAS</td>
+				
+					<td>ORGANO DE CTROL.DEL SISTEM.DE TRANSP.PCO.DE PASAJ.</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27838982);">27838982</a>
+				</td>
+				<td>BATTISTUTTI, MARIA CECILIA</td>
+				
+					<td>SECRETARIA PRIVADA DE INTENDENCIA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(18575894);">18575894</a>
+				</td>
+				<td>BAVOROVSKY, EDUARDO ADOLFO</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25904270);">25904270</a>
+				</td>
+				<td>BAY, ANAHI GEORGINA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25803529);">25803529</a>
+				</td>
+				<td>BECHI, ARIEL ALEJANDRO</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13333444);">13333444</a>
+				</td>
+				<td>BERNO, MONICA VIVIANA</td>
+				
+					<td>SECRETARIA DE SALUD</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25497778);">25497778</a>
+				</td>
+				<td>BERNUZZI, GUSTAVO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24995421);">24995421</a>
+				</td>
+				<td>BERTINI, MARIELA GUADALUPE</td>
+				
+					<td>DIREC.DE GESTION DE RIESGO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16817338);">16817338</a>
+				</td>
+				<td>BERTOLIN, GUSTAVO DANIEL</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(11511011);">11511011</a>
+				</td>
+				<td>BLANCO, NORMA CRISTINA</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20403312);">20403312</a>
+				</td>
+				<td>BLAZKOW, MIRTA</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28567981);">28567981</a>
+				</td>
+				<td>BOERO, MARCOS ALBERTO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28939758);">28939758</a>
+				</td>
+				<td>BONCOPAGNI , LAURA LEONOR</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29618503);">29618503</a>
+				</td>
+				<td>BONTEMPI, DAMIAN PABLO</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13190507);">13190507</a>
+				</td>
+				<td>BORGHINI FERRARO, GUILLERMO OS</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12437157);">12437157</a>
+				</td>
+				<td>BRAVI, RODOLFO ANTONIO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12661289);">12661289</a>
+				</td>
+				<td>BRODA, RUBEN ALFREDO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24722318);">24722318</a>
+				</td>
+				<td>BURGOS, EDUARDO MARTIN</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12871882);">12871882</a>
+				</td>
+				<td>CABAL, LUIS MARIANO</td>
+				
+					<td>DIREC.DE GESTION DE RIESGO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27793269);">27793269</a>
+				</td>
+				<td>CALAFELL, MARIA LAURA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(18593707);">18593707</a>
+				</td>
+				<td>CANCELLIERI, ENRIQUE JAVIER</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17857724);">17857724</a>
+				</td>
+				<td>CANESINI, CLAUDIO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(14830755);">14830755</a>
+				</td>
+				<td>CANTELLI, GABRIEL ALFREDO</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(30786226);">30786226</a>
+				</td>
+				<td>CAPPI, MARCELO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(30432320);">30432320</a>
+				</td>
+				<td>CARRARA, JUAN IGNACIO</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16523163);">16523163</a>
+				</td>
+				<td>CASELLI, FABIAN ANRES</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22614334);">22614334</a>
+				</td>
+				<td>CASTRO, ROSANA SONIA</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(10246155);">10246155</a>
+				</td>
+				<td>CATENA, RAFAEL ENRIQUE</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25126677);">25126677</a>
+				</td>
+				<td>CEJAS, JAVIER LEONARDO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(14455447);">14455447</a>
+				</td>
+				<td>CELANO,ROBERTO FRANCISCO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24943878);">24943878</a>
+				</td>
+				<td>CENTURION, HORACIO JOSE</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12891149);">12891149</a>
+				</td>
+				<td>CHEMES, JOSE MARIA</td>
+				
+					<td>AGENC.DE COOPERAC.INVERSIONES Y COMERC.EXTERIOR</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29140683);">29140683</a>
+				</td>
+				<td>CHERNER, GUILLERMO JAVIER</td>
+				
+					<td>PROGRAMA DE ECONOMIA SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29834375);">29834375</a>
+				</td>
+				<td>CIANI, CORINA EMILCE</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28158565);">28158565</a>
+				</td>
+				<td>CONDAL, LUCAS LEANDRO</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20403365);">20403365</a>
+				</td>
+				<td>CORRAL, JOSE MANUEL</td>
+				
+					<td></td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27413696);">27413696</a>
+				</td>
+				<td>CORSETTI, GONZALO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(6262933);">6262933</a>
+				</td>
+				<td>CRESPI, MIGUEL ANGEL</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24275065);">24275065</a>
+				</td>
+				<td>CURUCHET, MARIO ALBERTO</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25198656);">25198656</a>
+				</td>
+				<td>CUVERTINO,MARIANO RAFAEL</td>
+				
+					<td>PROGRAMA DE ECONOMIA SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22961083);">22961083</a>
+				</td>
+				<td>DALL'AGLIO, RAMIRO</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16573200);">16573200</a>
+				</td>
+				<td>DEGIORGIO, ALDO PABLO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26860482);">26860482</a>
+				</td>
+				<td>DEGIORGI, VANESA IVON</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(11711474);">11711474</a>
+				</td>
+				<td>DE PAULA, GRACIELA</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(32370834);">32370834</a>
+				</td>
+				<td>DE PIANTE VICIN, LEANDRO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17904248);">17904248</a>
+				</td>
+				<td>DOYHARZABAL, MARCELO EUGENIO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28524556);">28524556</a>
+				</td>
+				<td>DUBICKI, IVAN IGNACIO</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(23622121);">23622121</a>
+				</td>
+				<td>EGA�A, PILAR</td>
+				
+					<td>SINDICATURA GENERAL MUNICIPAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(23228274);">23228274</a>
+				</td>
+				<td>ETCHEVARRIA, MARIA BELEN RITA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29387570);">29387570</a>
+				</td>
+				<td>FANTINO, NATALIA VERONICA</td>
+				
+					<td>ENTE AUT.S.FE HAB:AGENC.P DES.SOC.Y URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(11790549);">11790549</a>
+				</td>
+				<td>FASSINO, MARTA CECILIA</td>
+				
+					<td>DIREC.DE DERECHOS CIUDADANOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(14764367);">14764367</a>
+				</td>
+				<td>FERNANDEZ, JAVIER EDGARDO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22620335);">22620335</a>
+				</td>
+				<td>FIGUEROA, ERICA AMALIA</td>
+				
+					<td>SECRETARIA DE EDUCACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12871511);">12871511</a>
+				</td>
+				<td>FORMICHELLI, MARIA SUSANA</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16400362);">16400362</a>
+				</td>
+				<td>FRANCO, FELIPE ROBERTO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17462614);">17462614</a>
+				</td>
+				<td>GAGGIAMO, ESTEBAN</td>
+				
+					<td>FISCALIA MUNICIPAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26789363);">26789363</a>
+				</td>
+				<td>GAGGIAMO,MARTIN</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(6065854);">6065854</a>
+				</td>
+				<td>GAINEDDU, LILIANA EMA</td>
+				
+					<td>SECRETARIA DE EDUCACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20283108);">20283108</a>
+				</td>
+				<td>GALINDEZ, FLORENCIO</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26276967);">26276967</a>
+				</td>
+				<td>GALLUCCIO, CAROLINA BEATRIZ</td>
+				
+					<td>ORGANO DE CTROL.DEL SISTEM.DE TRANSP.PCO.DE PASAJ.</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27117365);">27117365</a>
+				</td>
+				<td>GARRIDO, MARIA FLORENCIA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24291870);">24291870</a>
+				</td>
+				<td>GASTALDI, MARCELO LUIS</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26789440);">26789440</a>
+				</td>
+				<td>GIACOMELLI, LETICIA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24995181);">24995181</a>
+				</td>
+				<td>GIMENEZ CORTE, LISANDRO</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26776478);">26776478</a>
+				</td>
+				<td>GONZALEZ, MARTIN OSCAR</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24769659);">24769659</a>
+				</td>
+				<td>GONZALEZ, SIMON</td>
+				
+					<td>AGENC.DE COOPERAC.INVERSIONES Y COMERC.EXTERIOR</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25459307);">25459307</a>
+				</td>
+				<td>GSCHWIND, BARBARA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17997457);">17997457</a>
+				</td>
+				<td>HEIN, EDUARDO EMILIO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(33468688);">33468688</a>
+				</td>
+				<td>HERNANDEZ, CECILIA MERCEDES</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16174719);">16174719</a>
+				</td>
+				<td>INGARAMO, ROSSANA</td>
+				
+					<td>SECRETARIA DE EDUCACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16867640);">16867640</a>
+				</td>
+				<td>JARA, FANNY ANALIA</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27834864);">27834864</a>
+				</td>
+				<td>JAURENA, JUAN FRANCISCO</td>
+				
+					<td>ORGANO DE CTROL.DEL SISTEM.DE TRANSP.PCO.DE PASAJ.</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12215608);">12215608</a>
+				</td>
+				<td>JURADO, ALFREDO ORLANDO</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28407109);">28407109</a>
+				</td>
+				<td>KLUG, MARIA BELEN</td>
+				
+					<td>SINDICATURA GENERAL MUNICIPAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20319510);">20319510</a>
+				</td>
+				<td>LAMANNA, RUBEN ERMELINDO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13377450);">13377450</a>
+				</td>
+				<td>LANDI, BERNARDINO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16455537);">16455537</a>
+				</td>
+				<td>LAURIA, SARA BEATRIZ</td>
+				
+					<td>ENTE AUT.S.FE HAB:AGENC.P DES.SOC.Y URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(21490665);">21490665</a>
+				</td>
+				<td>LEVATTI, ARIEL RENE</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26784827);">26784827</a>
+				</td>
+				<td>LEVRAND, RENATA ANABELLA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25499720);">25499720</a>
+				</td>
+				<td>LIZARRAGA, LEONARDO MARTIN</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13377793);">13377793</a>
+				</td>
+				<td>LOMBO, LUIS JOSE MARIA</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(14837115);">14837115</a>
+				</td>
+				<td>LONG,ALICIA IRENE</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26596152);">26596152</a>
+				</td>
+				<td>LORENZATTO, ALFREDO ALBERTO</td>
+				
+					<td>DIREC.DE GESTION DE RIESGO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17222879);">17222879</a>
+				</td>
+				<td>LUDUE�A, SERGIO CONRADO</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22437604);">22437604</a>
+				</td>
+				<td>MANASSERO, GERMAN</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(10427577);">10427577</a>
+				</td>
+				<td>MANNI, HECTOR MARIO</td>
+				
+					<td>SECRETARIA DE EDUCACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(21798584);">21798584</a>
+				</td>
+				<td>MARCHETTI, HUGO MARCELO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26789267);">26789267</a>
+				</td>
+				<td>MARSILI, LEANDRO JAVIER</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(33068523);">33068523</a>
+				</td>
+				<td>MARTIN, JUAN</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29848505);">29848505</a>
+				</td>
+				<td>MARTIN, MARIA</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22149654);">22149654</a>
+				</td>
+				<td>MATZKIN, NATACHA</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(31978427);">31978427</a>
+				</td>
+				<td>MAURER, GABRIEL ANDRES</td>
+				
+					<td>DIREC.DE DERECHOS CIUDADANOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28580657);">28580657</a>
+				</td>
+				<td>MEDINA, PABLO MARIANO</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20834648);">20834648</a>
+				</td>
+				<td>MEDRANO, CARLOS ALBERTO</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27480838);">27480838</a>
+				</td>
+				<td>MENDOZA, MARIA PAZ</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25289391);">25289391</a>
+				</td>
+				<td>MONTENOTTE, RUBEN SEBASTIAN</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25903838);">25903838</a>
+				</td>
+				<td>MONTENOVI, IVAN HECTOR</td>
+				
+					<td>SECRETARIA DE EDUCACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13498443);">13498443</a>
+				</td>
+				<td>MURUAGA, NORA SARA</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16523014);">16523014</a>
+				</td>
+				<td>NARDI, GUSTAVO</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12884220);">12884220</a>
+				</td>
+				<td>NAVARRO, EDUARDO</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16073364);">16073364</a>
+				</td>
+				<td>NEIL, CLAUDIA YANET DEL LUJAN</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22342385);">22342385</a>
+				</td>
+				<td>ORDUNA, CAROLA MARIA DEL HUERT</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16387879);">16387879</a>
+				</td>
+				<td>PACHECO, CARLOS GUSTAVO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(5732628);">5732628</a>
+				</td>
+				<td>PAGLIERO, CELIA</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20319658);">20319658</a>
+				</td>
+				<td>PASCUALON, MARCELO DARIO</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20145646);">20145646</a>
+				</td>
+				<td>PEREIRA, CARLOS ALBERTO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25759101);">25759101</a>
+				</td>
+				<td>PERTICARA, MARIELA KARINA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(11453656);">11453656</a>
+				</td>
+				<td>PERUSINI, CARLOS</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26594773);">26594773</a>
+				</td>
+				<td>PEZZONE, MARIANO</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16031355);">16031355</a>
+				</td>
+				<td>PIERAGOSTINI, PATRICIA</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(30671314);">30671314</a>
+				</td>
+				<td>PIGHIN BARAVALLE, CINTIA ARACE</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(29853700);">29853700</a>
+				</td>
+				<td>PIVIDORI, MARTIN HERNAN</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(23577961);">23577961</a>
+				</td>
+				<td>PIZZI, PABLO</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26789046);">26789046</a>
+				</td>
+				<td>PLATINO, MARIA FLORENCIA</td>
+				
+					<td>SECRETARIA DE CULTURA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(25903874);">25903874</a>
+				</td>
+				<td>PONCE DE LEON, FRANCO IVAN</td>
+				
+					<td>DIREC.DE DERECHOS CIUDADANOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20137348);">20137348</a>
+				</td>
+				<td>PONCE, GUSTAVO MARCELO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20477062);">20477062</a>
+				</td>
+				<td>PONCIO, KARINA GABRIELA</td>
+				
+					<td>JUSTICIA ADMINISTRATIVA DE FALTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(10782616);">10782616</a>
+				</td>
+				<td>PORTA, ROBERTO JORGE</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(23029855);">23029855</a>
+				</td>
+				<td>QUESADA RUIZ, ALEJANDRO ENRIQU</td>
+				
+					<td>TRIBUNAL DE CUENTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22652817);">22652817</a>
+				</td>
+				<td>QUIROGA, GUILLERMO JULIO</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(24214583);">24214583</a>
+				</td>
+				<td>RIBACK, SEBASTIAN</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16550101);">16550101</a>
+				</td>
+				<td>RICO, JORGE LUIS</td>
+				
+					<td>PROG.URBANOS INTEGRAL (NOROESTE Y OESTE)</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16903011);">16903011</a>
+				</td>
+				<td>RODRIGUEZ, JOSE ENRIQUE</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17462637);">17462637</a>
+				</td>
+				<td>RODRIGUEZ, LEONARDO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17648637);">17648637</a>
+				</td>
+				<td>ROSENFELD, CARLOS JOSE</td>
+				
+					<td>FISCALIA MUNICIPAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17344233);">17344233</a>
+				</td>
+				<td>ROURA, JOSE VICENTE</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(20948139);">20948139</a>
+				</td>
+				<td>RUDI, EDUARDO FABIO</td>
+				
+					<td>ENTE AUT.S.FE HAB:AGENC.P DES.SOC.Y URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12064873);">12064873</a>
+				</td>
+				<td>RUIZ DIAZ, MIGUEL ANGEL</td>
+				
+					<td>SECRETARIA GENERAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(16867062);">16867062</a>
+				</td>
+				<td>RUIZ, RICARDO DANIEL</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(12376753);">12376753</a>
+				</td>
+				<td>SAADE, CARLOS ALBERTO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(23822924);">23822924</a>
+				</td>
+				<td>SANCHEZ FERREIRA, IGNACIO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28241281);">28241281</a>
+				</td>
+				<td>SAVOY, JUAN MANUEL</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(8356178);">8356178</a>
+				</td>
+				<td>SCHRODER, MANUEL ENRIQUE</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28415250);">28415250</a>
+				</td>
+				<td>SEDLACEK, FEDERICO DANIEL</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(18413624);">18413624</a>
+				</td>
+				<td>SEDRAN SANCHEZ, SILVINA</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(32186430);">32186430</a>
+				</td>
+				<td>SIMONIELLO, LUCAS</td>
+				
+					<td>ENTE AUT.S.FE HAB:AGENC.P DES.SOC.Y URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(26374083);">26374083</a>
+				</td>
+				<td>SOSA, FERNANDO CARLOS</td>
+				
+					<td>SECRETARIA DE GOBIERNO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27204692);">27204692</a>
+				</td>
+				<td>STARDER, PAOLA</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27480931);">27480931</a>
+				</td>
+				<td>SUAREZ, MARIANO LUIS</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22168450);">22168450</a>
+				</td>
+				<td>TABARES, PABLO</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(14998017);">14998017</a>
+				</td>
+				<td>TEALDO, JULIO CLAUDIO</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(6259818);">6259818</a>
+				</td>
+				<td>TOMATI, CARLOS ALFREDO CESAR</td>
+				
+					<td>TRIBUNAL DE CUENTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(27480863);">27480863</a>
+				</td>
+				<td>TRAVAGLINI, VERONICA</td>
+				
+					<td>SECRETARIA DE HACIENDA</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17250439);">17250439</a>
+				</td>
+				<td>UBERTI, MARIELA</td>
+				
+					<td>SECRETARIA DE CONTROL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28244111);">28244111</a>
+				</td>
+				<td>UDRIZARD, IVAN CARLOS</td>
+				
+					<td>SECRETARIA DE LA PRODUCCION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28074017);">28074017</a>
+				</td>
+				<td>VALLEJOS, DIEGO</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(21420312);">21420312</a>
+				</td>
+				<td>VALSAGNA, ANDREA</td>
+				
+					<td>SECRETARIA DE COMUNICACION</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(13333571);">13333571</a>
+				</td>
+				<td>VANNAY, RAUL ERNESTO</td>
+				
+					<td>SECRET.DE OBRAS PCAS Y RECURS.HIDRICOS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(17904361);">17904361</a>
+				</td>
+				<td>VEGLIA, DANIELA BEATRIZ</td>
+				
+					<td>TRIBUNAL DE CUENTAS</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28158469);">28158469</a>
+				</td>
+				<td>VI�UELA, LUCIANA HURI</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(28158429);">28158429</a>
+				</td>
+				<td>VOROBIOF, CECILIA</td>
+				
+					<td>SECRETARIA DE DESARROLLO SOCIAL</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(18006285);">18006285</a>
+				</td>
+				<td>WENDLER, NORMA RAQUEL</td>
+				
+					<td>SECRETARIA DE PLANEAMIENTO URBANO</td>
+					
+			</tr>															
+			<tr>
+				<td>
+					<a href="#dialog" name="modal" style="color:#0033FF" onClick="buscar_detalle(22314360);">22314360</a>
+				</td>
+				<td>ZEHNDER, MARIA NATALIA</td>
+				
+					<td>SECRETARIA DE SALUD</td>
+					
+			</tr>															
+			</table>
+			</div>
+						
+			<table style="font-size:13px;" border="0" width="100%">
+									<tr><td colspan="8"><div align="right"><em>Se encontraron 168 agentes.</em></div></td></tr>				
+				
+				<tr><td colspan="8" >&nbsp;</td></tr>				
+				<tr>
+					<td colspan="8">
+				  	  <div align="center">
+							<input type="button" value="Volver" name="VOLVER" id="VOLVER"  onClick="javascript: window.location='personal_buscar.php?tipoAgen=F'">
+						</div>					</td>
+				</tr>	
+		  	</table>		
+	  	</form>
+		</div>
+	</div>
+	<div id="copyright">
+    	<span class="fleft">&copy; 2012</span>
+        <span class="fright upper">Gobierno de la Ciudad de Santa Fe</span>
+        <br style="clear: both; height: 1%" />
+	</div>
+</div>
+</body>
+</html>
